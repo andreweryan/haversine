@@ -12,7 +12,7 @@ def haversine_distance(
         lon1 (float): Point 1 Longitude
         lat2 (float): Point 2 Latitude
         lon2 (float): Point 2 Longitude
-        unit (str):
+        unit (str): Earth unit for Haversine distance metric.
     Returns:
         distance (float): Haversine Distance between two points
     """
