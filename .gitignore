@@ -7,3 +7,4 @@ geodist.egg-info/entry_points.txt
 geodist.egg-info/PKG-INFO
 geodist.egg-info/SOURCES.txt
 geodist.egg-info/top_level.txt
+geodist/__pycache__/haversine.cpython-39.pyc

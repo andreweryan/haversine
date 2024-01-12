@@ -1,4 +1,4 @@
-# Python Repo template
+# GeoDist: Manual implementation of the Haversine (great-circle) distance between two geospatial coordinates
 
 To do:
 - [x] Update README with installation, usage, etc. 
