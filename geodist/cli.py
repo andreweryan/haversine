@@ -1,22 +1,33 @@
 import argparse
-from .haversine import *
+from haversine import haversine
+
 
 def main():
-
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--coordinates', nargs='*', required=True, help=" ")
-    parser.add_argument('--unit', type=str, default='km', help="Earth unit for Haversine distance metric.")
+    parser.add_argument(
+        "--coordinates",
+        nargs="*",
+        required=True,
+        help="Latitude1 Longitude1 Latitude2 Longitude2",
+    )
+    parser.add_argument(
+        "--unit",
+        type=str,
+        default="km",
+        help="Earth unit for Haversine distance metric.",
+    )
 
     args = parser.parse_args()
 
     coords = list(map(float, args.coordinates))
 
     distance = haversine(coords[0], coords[1], coords[2], coords[3], args.unit)
+
     print(distance)
 
+
 if __name__ == "__main__":
-    
     """
     TODO:
     - write unit tests
@@ -27,5 +38,5 @@ if __name__ == "__main__":
     mi: 1.613, km: 2.595, ft: 8516.349, m: 2595.783
 
     """
-    
+
     main()
