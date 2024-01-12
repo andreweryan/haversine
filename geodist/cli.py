@@ -15,7 +15,8 @@ def main():
         "--unit",
         type=str,
         default="km",
-        help="Earth unit for Haversine distance metric.",
+        choices=["km", "mi", "m", "ft"],
+        help="Earth unit for Haversine distance metric.Default=km",
     )
 
     args = parser.parse_args()
