@@ -28,4 +28,4 @@ optional arguments:
   --unit UNIT           Earth unit for Haversine distance metric.
 ```
 
-Example: `geodist --coordinates 38.89220430021896 -77.05003345757281 38.892175669253966 -77.02004891843859`
+Example: `geodist --coordinates 38.89220430021896 -77.05003345757281 38.892175669253966 -77.02004891843859 --unit km`
