@@ -9,11 +9,13 @@ To do:
 Installation:
 Clone this repository, cd into the directory, `pip install .`
 
+## Usage:
+
 Package import usage:
 ```python
 
 from geodist import haversine_distance
-dist = haversine_distance(38.89220430021896, -77.05003345757281, 38.892175669253966, -77.02004891843859, 'km')
+dist = haversine_distance(38.89220430021896, -77.05003345757281, 38.892175669253966, -77.02004891843859, 'kilometers')
 print(dist)
 ```
 
@@ -28,4 +30,4 @@ optional arguments:
   --unit UNIT           Earth unit for Haversine distance metric.
 ```
 
-Example: `geodist --coordinates 38.89220430021896 -77.05003345757281 38.892175669253966 -77.02004891843859 --unit km`
+Example: `geodist --coordinates 38.89220430021896 -77.05003345757281 38.892175669253966 -77.02004891843859 --unit kilometers`

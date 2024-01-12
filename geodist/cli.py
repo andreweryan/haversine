@@ -15,7 +15,7 @@ def main():
         "--unit",
         type=str,
         default="km",
-        choices=["km", "mi", "m", "ft"],
+        choices=["kilometers", "miles", "meters", "feet"],
         help="Earth unit for Haversine distance metric. Default=km",
     )
 

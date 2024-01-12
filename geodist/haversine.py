@@ -17,13 +17,13 @@ def haversine_distance(
         distance (float): Haversine Distance between two points
     """
 
-    if unit == "mi":
+    if unit == "miles":
         units = 3959.87433
-    elif unit == "ft":
+    elif unit == "feet":
         units = 20908136.4624
-    elif unit == "km":
+    elif unit == "kilometers":
         units = 6372.8
-    elif unit == "m":
+    elif unit == "meters":
         units = 6372800
     else:
         raise ValueError("Units not specified.")
