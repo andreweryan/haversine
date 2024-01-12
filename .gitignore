@@ -8,3 +8,5 @@ geodist.egg-info/PKG-INFO
 geodist.egg-info/SOURCES.txt
 geodist.egg-info/top_level.txt
 geodist/__pycache__/haversine.cpython-39.pyc
+tests/__pycache__/__init__.cpython-39.pyc
+tests/__pycache__/test_haversine.cpython-39.pyc

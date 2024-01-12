@@ -2,7 +2,7 @@
 
 To do:
 - [x] Update README with installation, usage, etc. 
-- [ ] Write unit tests
+- [x] Write unit tests
 - [ ] Change import usage to accept list(s) of coordinate points
 - [ ] Add CLI arg for specifying lat long vs long lat
 
