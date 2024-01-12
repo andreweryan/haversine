@@ -1,1 +1,1 @@
-from geodist import *
+from .haversine import *
