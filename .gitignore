@@ -10,3 +10,5 @@ geodist.egg-info/top_level.txt
 geodist/__pycache__/haversine.cpython-39.pyc
 tests/__pycache__/__init__.cpython-39.pyc
 tests/__pycache__/test_haversine.cpython-39.pyc
+build/lib/tests/__init__.py
+build/lib/tests/test_haversine.py
