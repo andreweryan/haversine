@@ -9,6 +9,6 @@ setup(
     description="Tool for calculating haversine distance between two coordinates.",
     packages=find_packages(),
     entry_points={
-        "console_scripts": ["geodist = geodist.cli:main"],
-    }
+        "console_scripts": ["haversine = haversine.cli:main"],
+    },
 )

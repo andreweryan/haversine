@@ -12,3 +12,14 @@ tests/__pycache__/__init__.cpython-39.pyc
 tests/__pycache__/test_haversine.cpython-39.pyc
 build/lib/tests/__init__.py
 build/lib/tests/test_haversine.py
+haversine.egg-info/dependency_links.txt
+haversine.egg-info/entry_points.txt
+haversine.egg-info/PKG-INFO
+haversine.egg-info/SOURCES.txt
+haversine.egg-info/top_level.txt
+haversine/__pycache__/__init__.cpython-39.pyc
+haversine/__pycache__/haversine.cpython-39.pyc
+geodist/__pycache__/__init__.cpython-39.pyc
+geodist/__pycache__/haversine.cpython-39.pyc
+geodist/__pycache__/__init__.cpython-39.pyc
+geodist/__pycache__/haversine.cpython-39.pyc
