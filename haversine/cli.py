@@ -14,7 +14,7 @@ def main():
     parser.add_argument(
         "--unit",
         type=str,
-        default="km",
+        default="kilometers",
         choices=["kilometers", "miles", "meters", "feet"],
         help="Earth unit for Haversine distance metric. Default=km",
     )
