@@ -2,8 +2,12 @@ from math import sqrt, sin, cos, asin, radians
 
 
 def haversine_distance(
-    lat1: float, lon1: float, lat2: float, lon2: float, unit: str = "kilometers"
-) -> float:
+    lat1: float,
+    lon1: float,
+    lat2: float,
+    lon2: float,
+    unit: str = "kilometers"
+    ) -> float:
     """Calculate the Haversine (great-circle) distance between two geospatial coordinates.
 
     Args:
