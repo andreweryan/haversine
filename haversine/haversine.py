@@ -16,14 +16,14 @@ def haversine_distance(
         distance (float): Haversine Distance between two points
     """
 
-    unit_map = {
+    earth_radius = {
         "kilometers": 6371.009,
         "meters": 6371009,
         "miles": 3958.7614581,
         "feet": 20902260.49876800925,
     }
 
-    r = unit_map.get(unit)
+    r = earth_radius.get(unit)
 
     if not r:
         raise ValueError("Units not specified.")
