@@ -1,4 +1,4 @@
-# GeoDist: Manual implementation of the Haversine (great-circle) distance between two geospatial coordinates
+# Haversine: Manual implementation of the Haversine (great-circle) distance between two geospatial coordinates
 
 To do:
 - [x] Update README with installation, usage, etc. 
@@ -14,14 +14,14 @@ Clone this repository, cd into the directory, `pip install .`
 Package import usage:
 ```python
 
-from geodist import haversine_distance
+from haversine import haversine_distance
 dist = haversine_distance(38.89220430021896, -77.05003345757281, 38.892175669253966, -77.02004891843859, 'kilometers')
 print(dist)
 ```
 
 CLI usage:
 ```
-usage: geodist [-h] --coordinates [COORDINATES ...] [--unit UNIT]
+usage: haversine [-h] --coordinates [COORDINATES ...] [--unit UNIT]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -30,4 +30,4 @@ optional arguments:
   --unit UNIT           Earth unit for Haversine distance metric.
 ```
 
-Example: `geodist --coordinates 38.89220430021896 -77.05003345757281 38.892175669253966 -77.02004891843859 --unit kilometers`
+Example: `haversine --coordinates 38.89220430021896 -77.05003345757281 38.892175669253966 -77.02004891843859 --unit kilometers`
