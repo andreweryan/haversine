@@ -1,26 +1,15 @@
 pipeline {
     agent any
     
-    environment {
-        VENV = 'dev'
-    }
-    
-    stages {
-        stage('Setup Python Environment') {
-            steps {
-                sh '''
-                    python -m venv ${VENV}
-                    . ${VENV}/bin/activate
-                    pip install pytest pytest-cov
-                    pip install -r requirements.txt || true
-                '''
-            }
+       environment {
+        PATH = "/Users/andrewryan/venvs/dev/bin/python3.exe;$PATH"
         }
-        
+    
+    stages {   
         stage('Run Tests') {
             steps {
                 sh '''
-                    ${VENV}/bin/python -m pytest --junitxml=test-results.xml --verbose || true
+                    $python -m pytest --junitxml=test-results.xml --verbose || true
                 '''
             }
             post {
