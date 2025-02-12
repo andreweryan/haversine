@@ -3,16 +3,18 @@ pipeline {
 
     environment {
         VENV = 'dev'
+        PYTHON = '/usr/local/bin/python3'  // Update with your Python path
     }
 
     stages {
         stage('Setup Python Environment') {
             steps {
                 sh '''
-                    python3 -m venv ${VENV}
-                    ${VENV}/bin/pip install --upgrade pip
-                    ${VENV}/bin/pip install pytest pytest-cov
-                    ${VENV}/bin/pip install -r requirements.txt || true
+                    ${PYTHON} -m venv ${VENV}
+                    . ${VENV}/bin/activate
+                    ${PYTHON} -m pip install --upgrade pip
+                    ${PYTHON} -m pip install pytest pytest-cov
+                    ${PYTHON} -m pip install -r requirements.txt || true
                 '''
             }
         }
@@ -20,22 +22,9 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh '''
-                    ${VENV}/bin/python3 -m pytest --junitxml=$WORKSPACE/test-results.xml --verbose > pytest.log 2>&1 || true
+                    . ${VENV}/bin/activate
+                    ${PYTHON} -m pytest --junitxml=$WORKSPACE/test-results.xml --verbose > pytest.log 2>&1 || true
                 '''
-                sh 'ls -l $WORKSPACE/test-results.xml || echo "test-results.xml not found!"'
-            }
-            post {
-                always {
-                    script {
-                        if (fileExists("$WORKSPACE/test-results.xml")) {
-                            echo "✅ test-results.xml found!"
-                            junit "$WORKSPACE/test-results.xml"
-                        } else {
-                            echo "❌ test-results.xml not found! Check pytest.log for details."
-                            sh 'cat pytest.log'
-                        }
-                    }
-                }
             }
         }
     }
