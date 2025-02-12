@@ -1,25 +1,46 @@
 //Jenkinsfile (Declarative Pipeline)
 pipeline {
     agent any
+    
+    environment {
+        // Use Python virtual environment
+        VENV = 'base'
+    }
+    
     stages {
-        stage('Build') { 
+        stage('Setup Python Environment') {
             steps {
-                echo 'Starting the build Stage'
-                echo 'Build Stage completed successfully'
+                sh '''
+                    python -m venv ${VENV}
+                    . ${VENV}/bin/activate
+                    pip install -r requirements.txt
+                '''
             }
         }
-        stage('Test') { 
+        
+        stage('Run Unit Tests') {
             steps {
-                echo 'Starting the Test Stage'
-                sh 'python3 -m unittest tests/test_haversine.py'
-                echo 'Test Stage completed successfully'
+                sh '''
+                    . ${VENV}/bin/activate
+                    python -m unittest discover -s <test_folder_name> -p "test_*.py" --junitxml=test-results/junit.xml
+                '''
+            }
+            post {
+                always {
+                    // Publish test results
+                    junit 'test-results/junit.xml'
+                }
+                failure {
+                    error 'Unit tests failed!'
+                }
             }
         }
-        stage('Deploy') { 
-            steps {
-                echo 'Starting the Deploy Stage'
-                echo 'Deploy Stage completed successfully'
-            }
+    }
+    
+    post {
+        always {
+            // Clean up virtual environment
+            cleanWs()
         }
     }
 }

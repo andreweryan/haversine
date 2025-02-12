@@ -1,8 +1,6 @@
 import unittest
 from haversine import haversine_distance
-"testing
-"
-#testing
+
 
 class TestHaversine(unittest.TestCase):
     def test_haversine_km(self):
