@@ -1,6 +1,7 @@
 # Haversine: Manual implementation of the Haversine (great-circle) distance between two geospatial coordinates
 
 To do:
+- [ ] Create dockerfile to build and test with Jenkins
 - [x] Update README with installation, usage, etc. 
 - [x] Write unit tests
 - [ ] Change import usage to accept list(s) of coordinate points
