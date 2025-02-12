@@ -20,7 +20,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh '''
-                    ${VENV}/bin/python -m pytest --junitxml=test-results.xml --verbose > pytest.log 2>&1 || true
+                    ${VENV}/bin/python -m pytest --junitxml=/var/jenkins_home/workspace/haversine/test-results.xml --verbose > pytest.log 2>&1 || true
                 '''
             }
             post {
