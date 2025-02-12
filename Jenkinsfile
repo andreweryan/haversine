@@ -1,40 +1,21 @@
 pipeline {
     agent any
     
-    environment {
-        VENV = 'dev'
-    }
-    
     stages {
-        stage('Setup Python Environment') {
+        stage('Checkout') {
             steps {
-                sh '''
-                    python -m venv ${VENV}
-                    . ${VENV}/bin/activate
-                    pip install pytest pytest-cov
-                    pip install -r requirements.txt
-                '''
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/andreweryan/haversine.git']])
             }
         }
-        
-        stage('Run Tests') {
+        stage('Build') {
             steps {
-                sh '''
-                    . ${VENV}/bin/activate
-                    pytest --junitxml=test-results.xml --verbose
-                '''
-            }
-            post {
-                always {
-                    junit 'test-results.xml'
-                }
+                git branch: 'main', url:'https://github.com/andreweryan/haversine.git'
             }
         }
-    }
-    
-    post {
-        always {
-            cleanWs()
+        stage('Test') {
+            steps {
+                sh '/venv/bin/python3 -m pytest'
+            }
         }
     }
 }
