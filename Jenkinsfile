@@ -1,9 +1,9 @@
 //Jenkinsfile (Declarative Pipeline)
 pipeline {
     agent any
-    environment {
-        PATH = "/Users/andrewryan/venvs/dev/bin/python3.exe;$PATH"
-        }
+    // environment {
+    //     PATH = "/Users/andrewryan/venvs/dev/bin/python3.exe;$PATH"
+    //     }
     stages {
         stage('Build') { 
             steps {
@@ -14,7 +14,7 @@ pipeline {
         stage('Test') { 
             steps {
                 echo 'Starting the Test Stage'
-                sh 'python -m unittest tests/test_haversine.py'
+                sh 'python3 -m unittest tests/test_haversine.py'
                 echo 'Test Stage completed successfully'
             }
         }
