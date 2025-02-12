@@ -23,6 +23,7 @@ pipeline {
                     ${VENV}/bin/python -m pytest --junitxml=test-results.xml --verbose > pytest.log 2>&1 || true
                 '''
             }
+            sh 'cat -A test-results.xml'
             post {
                 always {
     
