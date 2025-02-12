@@ -11,7 +11,6 @@ pipeline {
         stage('Test') { 
             steps {
                 echo 'Starting the Test Stage'
-                sh 'which python3'
                 // sh 'python -m unittest tests/test_haversine.py'
                 echo 'Test Stage completed successfully'
             }
