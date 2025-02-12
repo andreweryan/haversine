@@ -1,6 +1,9 @@
 //Jenkinsfile (Declarative Pipeline)
 pipeline {
     agent any
+    environment {
+        PATH = "/Users/andrewryan/venvs/dev/bin/python3.exe;$PATH"
+        }
     stages {
         stage('Build') { 
             steps {
