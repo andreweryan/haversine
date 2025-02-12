@@ -1,7 +1,7 @@
-geodist.egg-info/dependency_links.txt
-build/lib/geodist/__init__.py
-build/lib/geodist/cli.py
-build/lib/geodist/haversine.py
+haversine.egg-info/dependency_links.txt
+build/lib/haversine/__init__.py
+build/lib/haversine/cli.py
+build/lib/haversine/haversine.py
 tests/__pycache__/__init__.cpython-39.pyc
 tests/__pycache__/test_haversine.cpython-39.pyc
 build/lib/tests/__init__.py
