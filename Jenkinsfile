@@ -1,20 +1,31 @@
 pipeline {
     agent any
     
-       environment {
-        PATH = "/Users/andrewryan/venvs/dev/bin/python3.exe;$PATH"
-        }
+    environment {
+        VENV = 'dev'
+    }
     
-    stages {   
+    stages {
+        stage('Setup Python Environment') {
+            steps {
+                sh '''
+                    python -m venv ${VENV}
+                    . ${VENV}/bin/activate
+                    pip install pytest pytest-cov
+                    pip install -r requirements.txt
+                '''
+            }
+        }
+        
         stage('Run Tests') {
             steps {
                 sh '''
-                    $python -m pytest --junitxml=test-results.xml --verbose || true
+                    . ${VENV}/bin/activate
+                    pytest --junitxml=test-results.xml --verbose
                 '''
             }
             post {
                 always {
-                    sh 'cat test-results.xml || echo "<testsuites></testsuites>" > test-results.xml'
                     junit 'test-results.xml'
                 }
             }
