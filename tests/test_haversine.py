@@ -11,8 +11,7 @@ class TestHaversine(unittest.TestCase):
             -77.02004891843859,
             "kilometers",
         )
-        # self.assertAlmostEqual(result, 2.595, 1)
-        self.assertAlmostEqual(result, 5, 1)
+        self.assertAlmostEqual(result, 2.595, 1)
 
     def test_haversine_mi(self):
         result = haversine_distance(
