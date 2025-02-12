@@ -19,7 +19,7 @@ pipeline {
         
         stage('Run Tests') {
             steps {
-                sh 'ls -l'
+                sh(script:'ls -la dir1', returnStdout:true).trim()
                 // sh '''
                 //     ${VENV}/bin/python -m pytest --junitxml=test-results.xml --verbose > pytest.log 2>&1 || true
                 // '''
