@@ -1,10 +1,10 @@
 pipeline {
     agent any
-    
+
     environment {
         VENV = 'dev'
     }
-    
+
     stages {
         stage('Setup Python Environment') {
             steps {
@@ -16,7 +16,7 @@ pipeline {
                 '''
             }
         }
-        
+
         stage('Run Tests') {
             steps {
                 sh '''
@@ -28,9 +28,10 @@ pipeline {
                 always {
                     script {
                         if (fileExists("$WORKSPACE/test-results.xml")) {
+                            echo "✅ test-results.xml found!"
                             junit "$WORKSPACE/test-results.xml"
                         } else {
-                            echo "Warning: test-results.xml not found! Check pytest.log for details."
+                            echo "❌ test-results.xml not found! Check pytest.log for details."
                             sh 'cat pytest.log'
                         }
                     }
@@ -38,7 +39,7 @@ pipeline {
             }
         }
     }
-    
+
     post {
         always {
             cleanWs()
