@@ -10,7 +10,8 @@ def test_haversine_mi():
         -77.02004891843859,
         "miles",
     )
-    assert abs(result - 1.613) < 0.1
+    # assert abs(result - 1.613) < 0.1
+    assert abs(result - 999) < 0.1
 
 
 def test_haversine_m():
