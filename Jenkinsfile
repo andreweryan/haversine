@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         VENV = 'dev'
-        PYTHON = '/usr/local/bin/python3'  // Update with your Python path
+        PYTHON = '/Users/andrewryan/venvs/dev/bin/python3'  // Update with your Python path
     }
 
     stages {
