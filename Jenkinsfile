@@ -10,9 +10,9 @@ pipeline {
             steps {
                 sh '''
                     python -m venv ${VENV}
-                    . ${VENV}/bin/activate
-                    pip install pytest pytest-cov
-                    pip install -r requirements.txt || true
+                    ${VENV}/bin/pip install --upgrade pip
+                    ${VENV}/bin/pip install pytest pytest-cov
+                    ${VENV}/bin/pip install -r requirements.txt || true
                 '''
             }
         }
@@ -20,21 +20,9 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh '''
-                    ${VENV}/bin/python -m pytest --junitxml=test-results.xml --verbose || true
+                    ${VENV}/bin/python -m pytest --junitxml=test-results.xml --verbose > pytest.log 2>&1 || true
                 '''
             }
             post {
                 always {
-                    sh 'cat test-results.xml || echo "<testsuites></testsuites>" > test-results.xml'
-                    junit 'test-results.xml'
-                }
-            }
-        }
-    }
     
-    post {
-        always {
-            cleanWs()
-        }
-    }
-}

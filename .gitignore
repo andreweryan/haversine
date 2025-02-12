@@ -14,3 +14,4 @@ haversine/__pycache__/
 build/lib/haversine/__init__.py
 build/lib/haversine/cli.py
 build/lib/haversine/haversine.py
+test-results.xml
