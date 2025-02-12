@@ -1,10 +1,8 @@
-//Jenkinsfile (Declarative Pipeline)
 pipeline {
     agent any
     
     environment {
-        // Use Python virtual environment
-        VENV = 'base'
+        VENV = 'dev'
     }
     
     stages {
@@ -13,6 +11,7 @@ pipeline {
                 sh '''
                     python -m venv ${VENV}
                     . ${VENV}/bin/activate
+                    pip install xmlrunner
                     pip install -r requirements.txt
                 '''
             }
@@ -20,18 +19,40 @@ pipeline {
         
         stage('Run Unit Tests') {
             steps {
-                sh '''
-                    . ${VENV}/bin/activate
-                    python -m unittest discover -s <test_folder_name> -p "test_*.py" --junitxml=test-results/junit.xml
+                // Ensure clean test results directory
+                sh 'rm -rf test-results && mkdir -p test-results'
+                
+                // Create Python test runner script
+                writeFile file: 'run_tests.py', text: '''
+import unittest
+import xmlrunner
+import sys
+
+# Discover and run tests
+loader = unittest.TestLoader()
+suite = loader.discover('tests')
+
+runner = xmlrunner.XMLTestRunner(output='test-results')
+result = runner.run(suite)
+
+# Exit with error code if tests failed
+sys.exit(not result.wasSuccessful())
+'''
+                
+                // Run the tests
+                sh '''#!/bin/bash
+                    source ${VENV}/bin/activate
+                    python run_tests.py
                 '''
             }
             post {
                 always {
                     // Publish test results
-                    junit 'test-results/junit.xml'
-                }
-                failure {
-                    error 'Unit tests failed!'
+                    junit(
+                        testResults: 'test-results/*.xml',
+                        allowEmptyResults: true,
+                        keepLongStdio: true
+                    )
                 }
             }
         }
@@ -39,7 +60,6 @@ pipeline {
     
     post {
         always {
-            // Clean up virtual environment
             cleanWs()
         }
     }
