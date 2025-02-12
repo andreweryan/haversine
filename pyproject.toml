@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "haversine"
+version = "0.0.1"
+authors = [
+    { name = "Andrew Ryan", email = "andrewryan@duck.com" }
+]
+description = "Tool for calculating haversine distance between two geospatial coordinates."
+readme = "README.md"
+requires-python = ">=3.6"
+dependencies = []
+
+[tool.setuptools]
+packages = ["haversine"]
+
+[project.scripts]
+haversine = "haversine.cli:main"
