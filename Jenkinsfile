@@ -9,7 +9,7 @@ pipeline {
         stage('Setup Python Environment') {
             steps {
                 sh '''
-                    python3 -m venv ${VENV}
+                    python -m venv ${VENV}
                     ${VENV}/bin/pip install --upgrade pip
                     ${VENV}/bin/pip install pytest pytest-cov
                     ${VENV}/bin/pip install -r requirements.txt || true
@@ -20,7 +20,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh '''
-                    ${VENV}/bin/python3 -m pytest --junitxml=$WORKSPACE/test-results.xml --verbose > pytest.log 2>&1 || true
+                    ${VENV}/bin/python -m pytest --junitxml=$WORKSPACE/test-results.xml --verbose > pytest.log 2>&1 || true
                 '''
                 sh 'ls -l $WORKSPACE/test-results.xml || echo "test-results.xml not found!"'
             }
