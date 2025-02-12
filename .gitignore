@@ -2,8 +2,7 @@ haversine.egg-info/dependency_links.txt
 build/lib/haversine/__init__.py
 build/lib/haversine/cli.py
 build/lib/haversine/haversine.py
-tests/__pycache__/__init__.cpython-39.pyc
-tests/__pycache__/test_haversine.cpython-39.pyc
+tests/__pycache__/
 build/lib/tests/__init__.py
 build/lib/tests/test_haversine.py
 haversine.egg-info/dependency_links.txt
