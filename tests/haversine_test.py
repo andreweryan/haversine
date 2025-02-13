@@ -1,4 +1,3 @@
-import pytest
 from haversine import haversine_distance
 
 
