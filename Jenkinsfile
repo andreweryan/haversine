@@ -24,10 +24,15 @@ pipeline {
         stage('Test') {
             steps {
                 sh '''
-                    venv/bin/python -m pytest
+                    venv/bin/python -m pytest --junit-xml test-reports/results.xml
                     venv/bin/haversine --coordinates 38.89220430021896 -77.05003345757281 38.892175669253966 -77.02004891843859 --unit kilometers
                 '''
                 }
+                post {
+                always {
+                    junit 'test-reports/results.xml'
+                }
+            }
         }
     }
 }
