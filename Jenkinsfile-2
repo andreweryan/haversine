@@ -2,14 +2,18 @@ pipeline {
     agent any
 
     environment {
-        GITHUB_TOKEN = credentials('GITHUB_CREDENTIALS')
-        REPO = "andreweryan/haversine"  // Replace with your repo name
+        GITHUB_CREDENTIALS = credentials('GITHUB_CREDENTIALS')
+        REPO = "andreweryan/haversine"
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: "https://github.com/${REPO}.git"
+                script {
+                    git branch: 'main', 
+                        credentialsId: 'GITHUB_CREDENTIALS', 
+                        url: "https://${env.GITHUB_CREDENTIALS_USR}:${env.GITHUB_CREDENTIALS_PSW}@github.com/${REPO}.git"
+                }
             }
         }
 
@@ -32,39 +36,6 @@ pipeline {
                     git config --global user.name "Jenkins"
                     git tag -a ${VERSION} -m "Release ${VERSION}"
                     git push origin ${VERSION}
-                '''
-            }
-        }
-
-        stage('Create GitHub Release') {
-            steps {
-                sh '''
-                    curl -X POST -H "Authorization: token ${GITHUB_TOKEN}" \
-                         -H "Accept: application/vnd.github.v3+json" \
-                         https://api.github.com/repos/${REPO}/releases \
-                         -d '{
-                               "tag_name": "${VERSION}",
-                               "name": "Release ${VERSION}",
-                               "body": "New release ${VERSION}",
-                               "draft": false,
-                               "prerelease": false
-                             }'
-                '''
-            }
-        }
-
-        stage('Upload Release Asset') {
-            steps {
-                sh '''
-                    ASSET_PATH="dist/my-software-${VERSION}.tar.gz"
-                    UPLOAD_URL=$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
-                                    https://api.github.com/repos/${REPO}/releases/latest \
-                                    | jq -r .upload_url | sed "s/{?name,label}//")
-                    
-                    curl -X POST -H "Authorization: token ${GITHUB_TOKEN}" \
-                         -H "Content-Type: application/gzip" \
-                         --data-binary @"$ASSET_PATH" \
-                         "$UPLOAD_URL?name=$(basename $ASSET_PATH)"
                 '''
             }
         }
