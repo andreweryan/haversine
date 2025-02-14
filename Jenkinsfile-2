@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        GITHUB_TOKEN = credentials('jenkins-github')
+        GITHUB_TOKEN = credentials('GITHUB_CREDENTIALS')
         REPO = "andreweryan/haversine"  // Replace with your repo name
     }
 
@@ -28,8 +28,8 @@ pipeline {
         stage('Create Git Tag') {
             steps {
                 sh '''
-                    git config --global user.email "andrrvt15@gmail.com"
-                    git config --global user.name "andreweryan"
+                    git config --global user.email "jenkins@localhost"
+                    git config --global user.name "Jenkins"
                     git tag -a ${VERSION} -m "Release ${VERSION}"
                     git push origin ${VERSION}
                 '''
