@@ -1,0 +1,81 @@
+pipeline {
+    agent any
+
+    environment {
+        GITHUB_TOKEN = credentials('GITHUB_TOKEN')
+        REPO = "andreweryan/haversine"  // Replace with your repo name
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: "https://github.com/${REPO}.git"
+            }
+        }
+
+        stage('Determine Release Version') {
+            steps {
+                script {
+                    def latestTag = sh(script: "git describe --tags --abbrev=0 || echo v0.0.0", returnStdout: true).trim()
+                    def versionParts = latestTag.replace("v", "").tokenize('.')
+                    def newVersion = "v${versionParts[0]}.${versionParts[1]}.${versionParts[2].toInteger() + 1}"
+                    env.VERSION = newVersion
+                    echo "New release version: ${env.VERSION}"
+                }
+            }
+        }
+
+        stage('Create Git Tag') {
+            steps {
+                sh '''
+                    git config --global user.email "jenkins@localhost"
+                    git config --global user.name "Jenkins"
+                    git tag -a ${VERSION} -m "Release ${VERSION}"
+                    git push origin ${VERSION}
+                '''
+            }
+        }
+
+        stage('Create GitHub Release') {
+            steps {
+                sh '''
+                    curl -X POST -H "Authorization: token ${GITHUB_TOKEN}" \
+                         -H "Accept: application/vnd.github.v3+json" \
+                         https://api.github.com/repos/${REPO}/releases \
+                         -d '{
+                               "tag_name": "${VERSION}",
+                               "name": "Release ${VERSION}",
+                               "body": "New release ${VERSION}",
+                               "draft": false,
+                               "prerelease": false
+                             }'
+                '''
+            }
+        }
+
+        stage('Upload Release Asset') {
+            steps {
+                sh '''
+                    ASSET_PATH="dist/my-software-${VERSION}.tar.gz"
+                    UPLOAD_URL=$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
+                                    https://api.github.com/repos/${REPO}/releases/latest \
+                                    | jq -r .upload_url | sed "s/{?name,label}//")
+                    
+                    curl -X POST -H "Authorization: token ${GITHUB_TOKEN}" \
+                         -H "Content-Type: application/gzip" \
+                         --data-binary @"$ASSET_PATH" \
+                         "$UPLOAD_URL?name=$(basename $ASSET_PATH)"
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Release ${VERSION} created successfully!"
+        }
+        failure {
+            echo "Release failed!"
+        }
+    }
+}
