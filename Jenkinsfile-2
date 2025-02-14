@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    triggers {
+        pollSCM 'H/5 * * * *'
+    }
     environment {
         GITHUB_CREDENTIALS = credentials('GITHUB_CREDENTIALS')
         REPO = "andreweryan/haversine"
@@ -61,8 +63,8 @@ pipeline {
             }
             steps {
                 sh '''
-                    git config --global user.email "jenkins@localhost"
-                    git config --global user.name "Jenkins"
+                    git config --global user.email "andrrvt15@gmail.com"
+                    git config --global user.name "andreweryan"
                     git tag -a ${VERSION} -m "Release ${VERSION}"
                     git push origin ${VERSION}
                 '''
