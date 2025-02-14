@@ -28,8 +28,8 @@ pipeline {
         stage('Create Git Tag') {
             steps {
                 sh '''
-                    git config --global user.email "jenkins@localhost"
-                    git config --global user.name "Jenkins"
+                    git config --global user.email "andrrvt15@gmail.com"
+                    git config --global user.name "andreweryan"
                     git tag -a ${VERSION} -m "Release ${VERSION}"
                     git push origin ${VERSION}
                 '''
