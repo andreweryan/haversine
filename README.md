@@ -2,8 +2,8 @@
 
 To do:
 - [ ] Create dockerfile to build and test with Jenkins
-- [x] Update README with installation, usage, etc. 
-- [x] Write unit tests
+- [ ] Support multiple points
+- [ ] Write unit tests for multi-points
 - [ ] Change import usage to accept list(s) of coordinate points
 - [ ] Add CLI arg for specifying lat long vs long lat
 
