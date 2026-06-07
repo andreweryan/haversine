@@ -16,7 +16,7 @@ Package import usage:
 ```python
 
 from haversine import haversine_distance
-dist = haversine_distance(38.89220430021896, -77.05003345757281, 38.892175669253966, -77.02004891843859, 'kilometers')
+dist_np = haversine_distance(38.89220430021896, -77.05003345757281, 38.892175669253966, -77.02004891843859)
 print(dist)
 ```
 

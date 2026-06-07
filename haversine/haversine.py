@@ -1,45 +1,29 @@
-from math import sqrt, sin, cos, asin, radians
+import numpy as np
 
+EARTH_RADIUS_KM = 6371.009
 
 def haversine_distance(
-    lat1: float, lon1: float, lat2: float, lon2: float, unit: str = "kilometers"
-) -> float:
-    """Calculate the Haversine (great-circle) distance between two geospatial coordinates.
-
-    Args:
-        lat1 (float): Point 1 Latitude
-        lon1 (float): Point 1 Longitude
-        lat2 (float): Point 2 Latitude
-        lon2 (float): Point 2 Longitude
-        unit (str): Earth unit for Haversine distance metric.
-    Returns:
-        distance (float): Haversine Distance between two points
-    """
-
-    earth_radius = {
-        "kilometers": 6371.009,
-        "meters": 6371009,
-        "miles": 3958.7614581,
-        "feet": 20902260.49876800925,
-    }
-
-    r = earth_radius.get(unit)
-
-    if not r:
-        raise ValueError("Units not specified.")
-
-    lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
+    lat1,
+    lon1,
+    lat2,
+    lon2,
+    radius=EARTH_RADIUS_KM,
+):
+    lat1 = np.radians(lat1)
+    lon1 = np.radians(lon1)
+    lat2 = np.radians(lat2)
+    lon2 = np.radians(lon2)
 
     dlat = lat2 - lat1
-
     dlon = lon2 - lon1
 
-    h = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
+    a = (
+        np.sin(dlat / 2.0) ** 2
+        + np.cos(lat1)
+        * np.cos(lat2)
+        * np.sin(dlon / 2.0) ** 2
+    )
 
-    h = min(1, h)
+    a = np.clip(a, 0.0, 1.0)
 
-    arc = 2 * asin(sqrt(h))
-
-    distance = arc * r
-
-    return distance
+    return 2 * radius * np.arcsin(np.sqrt(a))
